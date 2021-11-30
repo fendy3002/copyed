@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { window, workspace } from 'vscode';
 import * as superagent from 'superagent';
-export const insert = async () => {
+export const set = async () => {
     let gistFiles: any = {};
     try {
         let gistId = workspace.getConfiguration("copyed").get("gistId");
