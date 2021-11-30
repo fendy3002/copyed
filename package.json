@@ -10,14 +10,19 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:copyed.list"
+		"onCommand:copyed.list",
+		"onCommand:copyed.insert"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
 		"commands": [
 			{
 				"command": "copyed.list",
-				"title": "copyed:list",
+				"title": "copyed:list"
+			},
+			{
+				"command": "copyed.insert",
+				"title": "copyed:insert",
 				"enablement": "inputFocus"
 			}
 		],
