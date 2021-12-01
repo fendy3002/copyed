@@ -1,12 +1,14 @@
 import * as vscode from 'vscode';
 import { window, workspace } from 'vscode';
-import * as superagent from 'superagent';
-import { cacheManager } from './helper/cacheManager';
+import * as path from 'path';
 import * as util from 'util';
+import { getNunjucks } from './helper/getNunjucks';
+import { cacheManager } from './helper/cacheManager';
 //const { vsprintf } = require('sprintf-js');
 
 export const set = (context: vscode.ExtensionContext) => async () => {
     let delimiter = workspace.getConfiguration("copyed").get("argsDelimiter") as string;
+    let keyValueDelimiter = workspace.getConfiguration("copyed").get("keyValueDelimiter") as string;
     const _cacheManager = cacheManager(context);
     let files: string[] | null = _cacheManager.getFileNames();
     if (!files) {
@@ -29,9 +31,29 @@ export const set = (context: vscode.ExtensionContext) => async () => {
             else {
                 selectionText = editor.document.lineAt(editor.selection.active.line).text;
             }
-            let args = selectionText.split(delimiter);
-            if (args) {
-                content = util.format.apply(util, [content].concat(args));
+            let fileExtension = path.extname(chosenFile ?? "");
+            if (fileExtension == ".njs") {
+                let args = selectionText.split(delimiter);
+                let nunjucksContext: any = {};
+                let argsIndex = 0;
+                for (let arg of args) {
+                    let splitted = arg.split(keyValueDelimiter);
+                    // exactly key:value
+                    if (splitted.length == 2) {
+                        nunjucksContext[splitted[0].trim()] = splitted[1].trim();
+                    } else {
+                        nunjucksContext[argsIndex] = arg;
+                        argsIndex++;
+                    }
+                }
+                content = getNunjucks().renderString(content, {
+                    _: nunjucksContext
+                });
+            } else {
+                let args = selectionText.split(delimiter);
+                if (args) {
+                    content = util.format.apply(util, [content].concat(args));
+                }
             }
 
             editor.edit(editBuilder => {

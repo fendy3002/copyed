@@ -51,6 +51,12 @@
 					"default": ";",
 					"editPresentation": "singlelineText",
 					"description": "Argument delimiter."
+				},
+				"copyed.keyValueDelimiter": {
+					"type": "string",
+					"default": ":",
+					"editPresentation": "singlelineText",
+					"description": "Key-value delimiter for named args. Default is ':'"
 				}
 			}
 		}
@@ -83,7 +89,9 @@
 		"webpack-cli": "^4.8.0"
 	},
 	"dependencies": {
+		"@types/nunjucks": "^3.2.0",
 		"@types/superagent": "^4.1.13",
+		"nunjucks": "^3.2.3",
 		"sprintf": "^0.1.5",
 		"sprintf-js": "^1.1.2",
 		"superagent": "^6.1.0"
