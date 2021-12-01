@@ -19,7 +19,11 @@ export const cacheManager = (context: vscode.ExtensionContext) => {
         },
         getFileContent: (fileName: string) => {
             let filePath = path.join(fileStoragePath(), fileName);
-            return fs.readFileSync(filePath, "utf8");
+            try {
+                return fs.readFileSync(filePath, "utf8");
+            } catch (ex) {
+                return null;
+            }
         }
     };
 };

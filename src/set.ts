@@ -12,7 +12,7 @@ export const set = (context: vscode.ExtensionContext) => async () => {
     if (!files) {
         return;
     }
-    
+
     const chosenFile = await window.showQuickPick(files, {
         placeHolder: 'Choose snippet',
     });
@@ -38,9 +38,9 @@ export const set = (context: vscode.ExtensionContext) => async () => {
                 if (selection.start.line != selection.end.line ||
                     selection.start.character != selection.end.character) {
                     editor.selection.start.with(editor.selection.active.line, 0);
-                    editBuilder.replace(selection, content);
+                    editBuilder.replace(selection, content as string);
                 } else {
-                    editBuilder.replace(editor.document.lineAt(editor.selection.active.line).range, content);
+                    editBuilder.replace(editor.document.lineAt(editor.selection.active.line).range, content as string);
                 }
             });
         }
