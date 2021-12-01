@@ -16,6 +16,9 @@
 		"onCommand:copyed.insert",
 		"onCommand:copyed.load"
 	],
+	"repository": {
+		"url": "https://github.com/fendy3002/copyed"
+	},
 	"main": "./dist/extension.js",
 	"contributes": {
 		"commands": [
