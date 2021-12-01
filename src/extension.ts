@@ -2,6 +2,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import { set } from './set';
+import { setEach } from './setEach';
 import { list } from './list';
 import { load } from './load';
 import { insert } from './insert';
@@ -18,6 +19,7 @@ export function activate(context: vscode.ExtensionContext) {
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
 	context.subscriptions.push(vscode.commands.registerCommand('copyed.set', set(context)));
+	context.subscriptions.push(vscode.commands.registerCommand('copyed.setEach', setEach(context)));
 	context.subscriptions.push(vscode.commands.registerCommand('copyed.list', list(context)));
 	context.subscriptions.push(vscode.commands.registerCommand('copyed.load', load(context)));
 	context.subscriptions.push(vscode.commands.registerCommand('copyed.insert', insert(context)));
