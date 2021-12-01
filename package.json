@@ -60,9 +60,9 @@
 				},
 				"copyed.keyValueDelimiter": {
 					"type": "string",
-					"default": ":",
+					"default": "::",
 					"editPresentation": "singlelineText",
-					"description": "Key-value delimiter for named args. Default is ':'"
+					"description": "Key-value delimiter for named args. Default is '::'"
 				}
 			}
 		}

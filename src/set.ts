@@ -4,6 +4,7 @@ import * as path from 'path';
 import * as util from 'util';
 import { getNunjucks } from './helper/getNunjucks';
 import { cacheManager } from './helper/cacheManager';
+import { parseNunjucksArgs } from './helper/parseNunjucksArgs';
 //const { vsprintf } = require('sprintf-js');
 
 export const set = (context: vscode.ExtensionContext) => async () => {
@@ -33,19 +34,7 @@ export const set = (context: vscode.ExtensionContext) => async () => {
             }
             let fileExtension = path.extname(chosenFile ?? "");
             if (fileExtension == ".njs") {
-                let args = selectionText.split(delimiter);
-                let nunjucksContext: any = {};
-                let argsIndex = 0;
-                for (let arg of args) {
-                    let splitted = arg.split(keyValueDelimiter);
-                    // exactly key:value
-                    if (splitted.length == 2) {
-                        nunjucksContext[splitted[0].trim()] = splitted[1].trim();
-                    } else {
-                        nunjucksContext[argsIndex] = arg;
-                        argsIndex++;
-                    }
-                }
+                let nunjucksContext: any = parseNunjucksArgs(selectionText, delimiter, keyValueDelimiter);
                 content = getNunjucks().renderString(content, {
                     _: nunjucksContext,
                     get: (namedArgs: string | null, argsIndex: number | null, nullDisplay: string | null) => {
