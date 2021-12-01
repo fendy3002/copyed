@@ -4,6 +4,7 @@ import * as vscode from 'vscode';
 import { set } from './set';
 import { list } from './list';
 import { load } from './load';
+import { insert } from './insert';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -19,6 +20,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(vscode.commands.registerCommand('copyed.set', set(context)));
 	context.subscriptions.push(vscode.commands.registerCommand('copyed.list', list(context)));
 	context.subscriptions.push(vscode.commands.registerCommand('copyed.load', load(context)));
+	context.subscriptions.push(vscode.commands.registerCommand('copyed.insert', insert(context)));
 }
 
 // this method is called when your extension is deactivated

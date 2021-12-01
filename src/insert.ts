@@ -1,0 +1,47 @@
+import * as vscode from 'vscode';
+import { window, workspace } from 'vscode';
+import * as path from 'path';
+import * as util from 'util';
+import { getNunjucks } from './helper/getNunjucks';
+import { cacheManager } from './helper/cacheManager';
+
+export const insert = (context: vscode.ExtensionContext) => async () => {
+    let delimiter = workspace.getConfiguration("copyed").get("argsDelimiter") as string;
+    let keyValueDelimiter = workspace.getConfiguration("copyed").get("keyValueDelimiter") as string;
+    const _cacheManager = cacheManager(context);
+    let files: string[] | null = _cacheManager.getFileNames();
+    if (!files) {
+        return;
+    }
+
+    const chosenFile = await window.showQuickPick(files, {
+        placeHolder: 'Choose snippet',
+    });
+    let content = _cacheManager.getFileContent(chosenFile ?? "");
+    if (content) {
+        const editor = vscode.window.activeTextEditor;
+        if (editor) {
+            const selection = editor.selection;
+            let fileExtension = path.extname(chosenFile ?? "");
+            if (fileExtension == ".njs") {
+                let nunjucksContext: any = {};
+                content = getNunjucks().renderString(content, {
+                    _: nunjucksContext,
+                    get: (namedArgs: string | null, argsIndex: number | null, nullDisplay: string | null) => {
+                        if (namedArgs && nunjucksContext[namedArgs]) {
+                            return nunjucksContext[namedArgs];
+                        } else if ((argsIndex || argsIndex === 0) && nunjucksContext[argsIndex]) {
+                            return nunjucksContext[argsIndex];
+                        } else {
+                            return nullDisplay ?? "";
+                        }
+                    }
+                });
+            }
+
+            editor.edit(editBuilder => {
+                editBuilder.insert(selection.end, content as string);
+            });
+        }
+    }
+}

@@ -13,6 +13,7 @@
 		"onCommand:copyed.list",
 		"onCommand:copyed.set",
 		"onCommand:copyed.seteach",
+		"onCommand:copyed.insert",
 		"onCommand:copyed.load"
 	],
 	"main": "./dist/extension.js",
@@ -30,6 +31,11 @@
 			{
 				"command": "copyed.seteach",
 				"title": "copyed:set each",
+				"enablement": "inputFocus"
+			},
+			{
+				"command": "copyed.insert",
+				"title": "copyed:insert",
 				"enablement": "inputFocus"
 			},
 			{
