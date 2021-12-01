@@ -68,9 +68,11 @@ export const set = (context: vscode.ExtensionContext) => async () => {
             editor.edit(editBuilder => {
                 if (selection.start.line != selection.end.line ||
                     selection.start.character != selection.end.character) {
-                    editor.selection.start.with(editor.selection.active.line, 0);
                     editBuilder.replace(selection, content as string);
                 } else {
+                    editor.selection = new vscode.Selection(
+                        editor.selection.start.with(editor.selection.start.line, 0), editor.selection.end
+                    );
                     editBuilder.replace(editor.document.lineAt(editor.selection.active.line).range, content as string);
                 }
             });
