@@ -1,11 +1,13 @@
 {
 	"name": "copyed",
 	"displayName": "copyed",
-	"description": "",
+	"description": "Fetch gist content and paste the snippet into your code",
+	"license": "MIT",
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.60.0"
 	},
+	"publisher": "fendy3002",
 	"categories": [
 		"Other"
 	],
