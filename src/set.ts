@@ -1,26 +1,22 @@
 import * as vscode from 'vscode';
 import { window, workspace } from 'vscode';
 import * as superagent from 'superagent';
+import { cacheManager } from './helper/cacheManager';
 import * as util from 'util';
 //const { vsprintf } = require('sprintf-js');
 
 export const set = (context: vscode.ExtensionContext) => async () => {
-    let gistFiles: any = {};
-    let gistId = workspace.getConfiguration("copyed").get("gistId");
     let delimiter = workspace.getConfiguration("copyed").get("argsDelimiter") as string;
-    try {
-        let gistCallResult = await superagent.get(`https://api.github.com/gists/${gistId}`)
-            .set("accept", "application/vnd.github.v3+json")
-            .set("User-Agent", "VSCode 1.4.0");
-
-        gistFiles = gistCallResult.body.files;
-    } catch (ex) {
-        return vscode.window.showErrorMessage(ex.message);
+    const _cacheManager = cacheManager(context);
+    let files: string[] | null = _cacheManager.getFileNames();
+    if (!files) {
+        return;
     }
-    const chosenFile = await window.showQuickPick(Object.keys(gistFiles), {
+    
+    const chosenFile = await window.showQuickPick(files, {
         placeHolder: 'Choose snippet',
     });
-    let content = gistFiles[chosenFile ?? ""]?.content;
+    let content = _cacheManager.getFileContent(chosenFile ?? "");
     if (content) {
         const editor = vscode.window.activeTextEditor;
         if (editor) {

@@ -1,29 +1,22 @@
 import * as vscode from 'vscode';
-import { window, workspace } from 'vscode';
-import * as superagent from 'superagent';
+import { cacheManager } from './helper/cacheManager';
 export const list = (context: vscode.ExtensionContext) => async () => {
-    let gistFiles: any = {};
-    try {
-        let gistId = workspace.getConfiguration("copyed").get("gistId");
-        let gistCallResult = await superagent.get(`https://api.github.com/gists/${gistId}`)
-            .set("accept", "application/vnd.github.v3+json")
-            .set("User-Agent", "VSCode 1.4.0");
-
-        gistFiles = gistCallResult.body.files;
-    } catch (ex) {
-        return vscode.window.showErrorMessage(ex.message);
+    const _cacheManager = cacheManager(context);
+    let files: string[] | null = _cacheManager.getFileNames();
+    if (!files) {
+        return;
     }
     let content = "";
-    for (let file of Object.keys(gistFiles)) {
+    for (let file of files) {
         content += `* ${file}\n`;
     }
     content += `\n`;
-    for (let file of Object.keys(gistFiles)) {
+    for (let file of files) {
         content += `=========================\n`;
         content += `* ${file}\n`;
         content += `=========================\n`;
         content += `\n`;
-        content += `${gistFiles[file].content}`;
+        content += `${_cacheManager.getFileContent(file)}`;
         content += `\n`;
         content += `\n`;
     }

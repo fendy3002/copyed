@@ -16,6 +16,10 @@ export const cacheManager = (context: vscode.ExtensionContext) => {
                 vscode.window.showInformationMessage(`copyed: Data not exists. Please load / reload first`);
                 return null;
             }
+        },
+        getFileContent: (fileName: string) => {
+            let filePath = path.join(fileStoragePath(), fileName);
+            return fs.readFileSync(filePath, "utf8");
         }
     };
 };
