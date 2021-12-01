@@ -3,6 +3,7 @@
 import * as vscode from 'vscode';
 import { set } from './set';
 import { list } from './list';
+import { load } from './load';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -15,8 +16,9 @@ export function activate(context: vscode.ExtensionContext) {
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
-	context.subscriptions.push(vscode.commands.registerCommand('copyed.set', set));
-	context.subscriptions.push(vscode.commands.registerCommand('copyed.list', list));
+	context.subscriptions.push(vscode.commands.registerCommand('copyed.set', set(context)));
+	context.subscriptions.push(vscode.commands.registerCommand('copyed.list', list(context)));
+	context.subscriptions.push(vscode.commands.registerCommand('copyed.load', load(context)));
 }
 
 // this method is called when your extension is deactivated

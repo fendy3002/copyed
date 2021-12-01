@@ -4,7 +4,7 @@ import * as superagent from 'superagent';
 import * as util from 'util';
 //const { vsprintf } = require('sprintf-js');
 
-export const set = async () => {
+export const set = (context: vscode.ExtensionContext) => async () => {
     let gistFiles: any = {};
     let gistId = workspace.getConfiguration("copyed").get("gistId");
     let delimiter = workspace.getConfiguration("copyed").get("argsDelimiter") as string;

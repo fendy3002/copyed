@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { window, workspace } from 'vscode';
 import * as superagent from 'superagent';
-export const list = async () => {
+export const list = (context: vscode.ExtensionContext) => async () => {
     let gistFiles: any = {};
     try {
         let gistId = workspace.getConfiguration("copyed").get("gistId");

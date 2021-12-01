@@ -12,7 +12,8 @@
 	"activationEvents": [
 		"onCommand:copyed.list",
 		"onCommand:copyed.set",
-		"onCommand:copyed.seteach"
+		"onCommand:copyed.seteach",
+		"onCommand:copyed.load"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
@@ -30,6 +31,10 @@
 				"command": "copyed.seteach",
 				"title": "copyed:set each",
 				"enablement": "inputFocus"
+			},
+			{
+				"command": "copyed.load",
+				"title": "copyed:load / reload"
 			}
 		],
 		"configuration": {
