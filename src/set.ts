@@ -47,7 +47,16 @@ export const set = (context: vscode.ExtensionContext) => async () => {
                     }
                 }
                 content = getNunjucks().renderString(content, {
-                    _: nunjucksContext
+                    _: nunjucksContext,
+                    get: (namedArgs: string | null, argsIndex: number | null, nullDisplay: string | null) => {
+                        if (namedArgs && nunjucksContext[namedArgs]) {
+                            return nunjucksContext[namedArgs];
+                        } else if ((argsIndex || argsIndex === 0) && nunjucksContext[argsIndex]) {
+                            return nunjucksContext[argsIndex];
+                        } else {
+                            return nullDisplay ?? "";
+                        }
+                    }
                 });
             } else {
                 let args = selectionText.split(delimiter);
