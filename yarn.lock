@@ -134,7 +134,7 @@
     "@types/cookiejar" "*"
     "@types/node" "*"
 
-"@types/vscode@^1.62.0":
+"@types/vscode@^1.60":
   version "1.62.0"
   resolved "https://registry.yarnpkg.com/@types/vscode/-/vscode-1.62.0.tgz#b4d6d192d5aeb75e91d0adef689c3ecef9879da7"
   integrity sha512-iGlQJ1w5e3qPUryroO6v4lxg3ql1ztdTCwQW3xEwFawdyPLoeUSv48SYfMwc7kQA7h6ThUqflZIjgKAykeF9oA==
