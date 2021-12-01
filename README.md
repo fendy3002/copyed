@@ -1,70 +1,31 @@
-# copyed README
+# copyed
 
-This is the README for your extension "copyed". After writing up a brief description, we recommend including the following sections.
+Cache a gist content and paste it anywhere when editing with copyed.
 
-## Features
+## Paste a snippet from your gist
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+![Inserting sql select statement snippet](readme/intro.gif)
 
-For example if there is an image subfolder under your extension project workspace:
+copyed will load every files in your gist that you can choose. The example above is using [this gist](https://gist.github.com/fendy3002/0f4d90156fdc9ac7fe38a80b7769c639) with file [mysql select.njs](https://gist.github.com/fendy3002/0f4d90156fdc9ac7fe38a80b7769c639#file-mysql-select-njs).
 
-\!\[feature X\]\(images/feature-x.png\)
+## Templating and parsing arguments
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+![Multiple argument to parse](readme/intro_argument.gif)
 
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
+Parse multiple arguments (with delimiter) and use it to parse the template defined in the gist.
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+This extension has the following settings:
 
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+* `copyed.gistId`: GitHub Gist ID to load
+* `copyed.argsDelimiter`: Delimiter for arguments. Default is a semicolon ";"
+* `copyed.keyValueDelimiter`: Delimiter for key-value for each argument. Default is double colon "::"
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+None so far
 
 ## Release Notes
+### 0.0.1
 
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Prototyping / proof of concept

@@ -12,7 +12,7 @@ export const load = (context: vscode.ExtensionContext) => async () => {
             .set("User-Agent", "VSCode 1.4.0");
 
         gistFiles = gistCallResult.body.files;
-    } catch (ex) {
+    } catch (ex: any) {
         return vscode.window.showErrorMessage(ex.message);
     }
     const storagePath = context.globalStorageUri.path;
