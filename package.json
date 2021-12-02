@@ -100,8 +100,10 @@
 		"webpack-cli": "^4.8.0"
 	},
 	"dependencies": {
+		"@types/lodash": "^4.14.177",
 		"@types/nunjucks": "^3.2.0",
 		"@types/superagent": "^4.1.13",
+		"lodash": "^4.17.21",
 		"nunjucks": "^3.2.3",
 		"sprintf": "^0.1.5",
 		"sprintf-js": "^1.1.2",
