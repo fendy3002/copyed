@@ -59,7 +59,7 @@ export const setEach = (context: vscode.ExtensionContext) => async () => {
             }
 
             let fileExtension = path.extname(chosenFile ?? "");
-            if (fileExtension == ".njs") {
+            if (fileExtension == ".njk") {
                 content = selectionLines.map(line => {
                     let nunjucksContext: any = parseNunjucksArgs(line, delimiter, keyValueDelimiter);
                     return getNunjucks().renderString(template as string, {

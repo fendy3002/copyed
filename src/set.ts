@@ -55,7 +55,7 @@ export const set = (context: vscode.ExtensionContext) => async () => {
                 selectionText = editor.document.lineAt(editor.selection.active.line).text;
             }
             let fileExtension = path.extname(chosenFile ?? "");
-            if (fileExtension == ".njs") {
+            if (fileExtension == ".njk") {
                 let nunjucksContext: any = parseNunjucksArgs(selectionText, delimiter, keyValueDelimiter);
                 content = getNunjucks().renderString(content, {
                     _: nunjucksContext,

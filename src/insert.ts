@@ -41,7 +41,7 @@ export const insert = (context: vscode.ExtensionContext) => async () => {
         if (editor) {
             const selection = editor.selection;
             let fileExtension = path.extname(chosenFile ?? "");
-            if (fileExtension == ".njs") {
+            if (fileExtension == ".njk") {
                 let nunjucksContext: any = {};
                 content = getNunjucks().renderString(content, {
                     _: nunjucksContext,
