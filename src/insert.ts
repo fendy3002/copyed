@@ -4,19 +4,37 @@ import * as path from 'path';
 import * as util from 'util';
 import { getNunjucks } from './helper/getNunjucks';
 import { cacheManager } from './helper/cacheManager';
+import * as type from './type';
 
 export const insert = (context: vscode.ExtensionContext) => async () => {
-    let delimiter = workspace.getConfiguration("copyed").get("argsDelimiter") as string;
-    let keyValueDelimiter = workspace.getConfiguration("copyed").get("keyValueDelimiter") as string;
     const _cacheManager = cacheManager(context);
-    let files: string[] | null = _cacheManager.getFileNames();
-    if (!files) {
+    let cacheInfo: type.CacheInfo = _cacheManager.getCacheInfo();
+    if (!cacheInfo) {
         return;
     }
+    const editor = vscode.window.activeTextEditor;
+    if (!editor) {
+        return;
+    }
+    const languageId = editor.document.languageId;
+    const options = _cacheManager.getChoiceOptionsFromCache(languageId);
 
-    const chosenFile = await window.showQuickPick(files, {
+    const chosenOption = await window.showQuickPick(options, {
         placeHolder: 'Choose snippet',
-    });
+    }) ?? "";
+    if (!chosenOption) {
+        return;
+    }
+    let chosenFile = "";
+    if (chosenOption.indexOf(":") >= 0) {
+        let chosenOptionParts = chosenOption.split(":");
+        let chosenLanguage = chosenOptionParts[0];
+        let chosenShortFileName = chosenOptionParts.slice(1).join(":");
+        chosenFile = cacheInfo.map[chosenLanguage][chosenShortFileName].fullName;
+    } else {
+        chosenFile = (cacheInfo.map[languageId]?.[chosenOption] ?? cacheInfo.map["*"]?.[chosenOption]).fullName;
+    }
+
     let content = _cacheManager.getFileContent(chosenFile ?? "");
     if (content) {
         const editor = vscode.window.activeTextEditor;
